@@ -1,0 +1,23 @@
+{
+  "name": "playwright-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test --config=playwright.config.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/APAODUQS/playwright-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/APAODUQS/playwright-demo/issues"
+  },
+  "homepage": "https://github.com/APAODUQS/playwright-demo#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.18.1"
+  }
+}
