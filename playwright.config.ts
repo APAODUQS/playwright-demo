@@ -16,7 +16,7 @@ const config: PlaywrightTestConfig = {
      * Maximum time expect() should wait for the condition to be met.
      * For example in `await expect(locator).toHaveText();`
      */
-    timeout: 5000
+    timeout: 10000
   },
 
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -43,7 +43,7 @@ const config: PlaywrightTestConfig = {
     actionTimeout: 0,
 
     /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://localhost:3000',
+    baseURL: 'https://playwright.dev/',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     screenshot: 'only-on-failure',
@@ -91,18 +91,18 @@ const config: PlaywrightTestConfig = {
     // },
 
     /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: {
-    //     channel: 'msedge',
-    //   },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: {
-    //     channel: 'chrome',
-    //   },
-    // },
+    {
+      name: 'Microsoft Edge',
+      use: {
+        channel: 'msedge',
+      },
+    },
+    {
+      name: 'Google Chrome',
+      use: {
+        channel: 'chrome',
+      },
+    },
   ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
