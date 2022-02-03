@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test';
+const { test } = require('../browserstack/fixtures');
+import { expect } from '@playwright/test';
 import { HomePage } from './page-object/homePage';
 import { DocPage } from './page-object/docPage';
 import { TopBarComponent } from './component/topBar';

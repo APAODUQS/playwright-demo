@@ -103,6 +103,18 @@ const config: PlaywrightTestConfig = {
         channel: 'chrome',
       },
     },
+
+                    // -- BrowserStack Projects --
+    // name should be of the format browser@browser_version:os os_version@browserstack
+    {
+      name: 'chrome@desktop@browserstack',
+    },
+    {
+      name: 'edge@desktop@browserstack',
+    },
+    {
+      name: 'firefox@desktop@browserstack',
+    },
   ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
