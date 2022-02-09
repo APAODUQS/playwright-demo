@@ -1,22 +1,20 @@
-import { PlaywrightTestConfig, devices } from '@playwright/test';
+import { PlaywrightTestConfig, devices } from '@playwright/test'
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-
   testDir: './tests',
 
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
 
   expect: {
-
     /**
      * Maximum time expect() should wait for the condition to be met.
      * For example in `await expect(locator).toHaveText();`
      */
-    timeout: 10000
+    timeout: 10000,
   },
 
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -33,12 +31,11 @@ const config: PlaywrightTestConfig = {
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-
     // Browser options
     headless: false,
     viewport: { width: 1920, height: 1080 },
     ignoreHTTPSErrors: true,
-        
+
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
 
@@ -47,8 +44,8 @@ const config: PlaywrightTestConfig = {
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     screenshot: 'only-on-failure',
-    video:'retain-on-failure',
-    trace:'retain-on-failure',
+    video: 'retain-on-failure',
+    trace: 'retain-on-failure',
   },
 
   /* Configure projects for major browsers */
@@ -104,7 +101,7 @@ const config: PlaywrightTestConfig = {
       },
     },
 
-                    // -- BrowserStack Projects --
+    // -- BrowserStack Projects --
     // name should be of the format browser@browser_version:os os_version@browserstack
     {
       name: 'chrome@desktop@browserstack',
@@ -125,5 +122,5 @@ const config: PlaywrightTestConfig = {
   //   command: 'npm run start',
   //   port: 3000,
   // },
-};
-export default config;
+}
+export default config

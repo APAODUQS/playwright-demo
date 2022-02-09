@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "npx playwright test --config=playwright.config.ts"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/APAODUQS/playwright-demo.git"
@@ -18,6 +15,25 @@
   },
   "homepage": "https://github.com/APAODUQS/playwright-demo#readme",
   "devDependencies": {
-    "@playwright/test": "^1.18.1"
+    "@playwright/test": "^1.18.1",
+    "@typescript-eslint/eslint-plugin": "^5.10.2",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1"
+  },
+  "scripts": {
+    "test": "npx playwright test --config=playwright.config.ts",
+    "lint": "eslint '**/*.{js,ts,tsx}' --quiet",
+    "prettier:check": "prettier --check .",
+    "prettier:write": "prettier --write .",
+    "prettier": "prettier '**/*.{js,ts,tsx,md}' --ignore-path .gitignore"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{json}": ["prettier --write"]
+  },
+  "eslintConfig": {
+    "extends": ["plugin:prettier/recommended", "plugin:@typescript-eslint/recommended"]
   }
 }
