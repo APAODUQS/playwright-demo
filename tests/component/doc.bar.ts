@@ -1,24 +1,24 @@
 import { expect, Locator, Page } from '@playwright/test'
-import { LocatorConstants } from '../utils/locator.constants'
+import { DocPage } from '../page-object/doc.page'
 
-export class DocBarComponent {
-  readonly docPage: Page
+export class DocBarComponent extends DocPage {
+  readonly DOC_BAR: string = '.menu.thin-scrollbar.menu_Bmed'
+  readonly OPTION: string = 'text=OPTION'
+
+  readonly component: Page
   readonly docBar: Locator
 
-  constructor(docPage: Page) {
-    this.docPage = docPage
-    this.docBar = docPage.locator(LocatorConstants.DOC_BAR)
-  }
-
-  async goto() {
-    await this.docPage.goto('/docs/intro')
-    await expect(this.docBar).toBeVisible()
+  constructor(component: Page) {
+    super(component)
+    this.component = component
+    this.docBar = component.locator(this.DOC_BAR)
   }
 
   async gotoDocOption(option: string) {
-    let locator = LocatorConstants.OPTION
+    await expect.soft(this.docBar, 'The bar documentation should be visible').toBeVisible()
+    let locator = this.OPTION
     locator = locator.replace(/OPTION/, option)
-    const selectOption = this.docPage.locator(locator)
+    const selectOption = this.component.locator(locator)
     selectOption.click()
   }
 }

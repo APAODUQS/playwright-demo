@@ -1,21 +1,22 @@
 import { expect, Locator, Page } from '@playwright/test'
-import { LocatorConstants } from '../utils/locator.constants'
 
 export class HomePage {
-  readonly homePage: Page
+  readonly GET_STARTED_BUTTON: string = 'text=Get started'
+
+  readonly component: Page
   readonly getStartButton: Locator
 
   constructor(homePage: Page) {
-    this.homePage = homePage
-    this.getStartButton = homePage.locator(LocatorConstants.GET_STARTED_BUTTON)
+    this.component = homePage
+    this.getStartButton = homePage.locator(this.GET_STARTED_BUTTON)
   }
 
   async goto() {
-    await this.homePage.goto('/')
+    await this.component.goto('/')
   }
 
   async clickStartButton() {
-    await expect(this.getStartButton).toBeVisible()
+    await expect.soft(this.getStartButton, 'The "Get Start" button should be visible').toBeVisible()
     this.getStartButton.click()
   }
 }

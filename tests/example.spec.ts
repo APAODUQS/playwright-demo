@@ -1,35 +1,39 @@
 import { test } from '../browserstack/fixtures'
 import { expect } from '@playwright/test'
-import { HomePage } from './page-object/home.page'
+import { UtilsTests } from './utils/utils'
 import { DocPage } from './page-object/doc.page'
 import { TopBarComponent } from './component/top.bar'
 import { DocBarComponent } from './component/doc.bar'
 
-test('Get started with Playwright', async ({ page }) => {
-  await page.goto('https://playwright.dev/')
-  await page.locator('text=Get started').click()
-  await expect(page).toHaveTitle(/Getting started/)
-})
+test.describe('My tests set', () => {
+  // test('Get started with Playwright', async ({ page }) => {
+  //   await page.goto('https://playwright.dev/')
+  //   await page.locator('text=Get started').click()
+  //   await expect(page).toHaveTitle(/Getting started/)
+  // })
 
-test('Select the Top Bar Options', async ({ page }) => {
-  const runner = new TopBarComponent(page)
-  await runner.goto()
-  await runner.gotoTopBarLanguages()
-  await runner.gotoTopBarVersions()
-})
+  test('Select the Top Bar Options', async ({ page }) => {
+    const runner = new TopBarComponent(page)
+    await runner.goto()
+    await runner.gotoTopBarLanguages()
+    await runner.gotoTopBarVersions()
+  })
 
-test('Go to Get started with Playwright', async ({ page }) => {
-  const runner1 = new HomePage(page)
-  await runner1.goto()
-  await runner1.clickStartButton()
-  const runner2 = new DocPage(page)
-  await expect(runner2.docTitle.first()).toHaveText(/Getting started/)
-})
+  test('Go to "Getting started" with Playwright', async ({ page }, testInfo) => {
+    const section = UtilsTests.getTheTitleParams(testInfo.title)[0]
+    const runner = new DocPage(page)
+    await runner.goto()
+    await runner.clickStartButton()
+    await expect.soft(runner.docTitle, `The title page should be: ${section}`).toHaveText(new RegExp(section, 'i'))
+    expect.soft(await runner.docPage.title(), `The title page should contain: ${section}`).toContain(section)
+  })
 
-test('Select Document Bar Options', async ({ page }) => {
-  const runner = new DocBarComponent(page)
-  await runner.goto()
-  await runner.gotoDocOption('Reporters')
-  const runner2 = new DocPage(page)
-  await expect(runner2.docTitle.first()).toHaveText(/Reporters/)
+  test('Select Document Bar Options and go to the "Reporters" option', async ({ page }, testInfo) => {
+    const subsection = UtilsTests.getTheTitleParams(testInfo.title)[0]
+    const runner = new DocBarComponent(page)
+    await runner.gotoDocumentation()
+    await runner.gotoDocOption(subsection)
+    await expect(runner.docTitle.first()).toHaveText(new RegExp(subsection, 'i'))
+  })
+
 })

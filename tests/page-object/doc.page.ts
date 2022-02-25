@@ -1,17 +1,20 @@
 import { expect, Locator, Page } from '@playwright/test'
-import { LocatorConstants } from '../utils/locator.constants'
+import { HomePage } from './home.page'
 
-export class DocPage {
+export class DocPage extends HomePage {
+  readonly PAGE_TITLE: string = 'h1'
+
   readonly docPage: Page
   readonly docTitle: Locator
 
   constructor(docPage: Page) {
+    super(docPage)
     this.docPage = docPage
-    this.docTitle = docPage.locator(LocatorConstants.PAGE_TITLE)
+    this.docTitle = docPage.locator(this.PAGE_TITLE)
   }
 
-  async goto() {
+  async gotoDocumentation() {
     await this.docPage.goto('/docs/intro')
-    await expect(this.docTitle).toBeVisible()
+    await expect.soft(this.docTitle, 'The documentation page should be loaded').toBeVisible()
   }
 }
