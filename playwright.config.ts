@@ -14,7 +14,7 @@ const config: PlaywrightTestConfig = {
      * Maximum time expect() should wait for the condition to be met.
      * For example in `await expect(locator).toHaveText();`
      */
-    timeout: 10000,
+    timeout: 60 * 1000,
   },
 
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -51,25 +51,31 @@ const config: PlaywrightTestConfig = {
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-
-      /* Project-specific settings. */
+      name: 'Chrome',
       use: {
-        ...devices['Desktop Chrome'],
+        browserName: 'chromium',
+        channel: 'chrome',
       },
     },
 
     {
-      name: 'firefox',
+      name: 'Safari',
       use: {
-        ...devices['Desktop Firefox'],
+        browserName: 'webkit',
       },
     },
 
     {
-      name: 'webkit',
+      name: 'Firefox',
       use: {
-        ...devices['Desktop Safari'],
+        browserName: 'firefox',
+      },
+    },
+    {
+      name: 'Microsoft Edge',
+      use: {
+        // Supported Microsoft Edge channels are: msedge, msedge-beta, msedge-dev, msedge-canary
+        channel: 'msedge',
       },
     },
 
@@ -88,30 +94,27 @@ const config: PlaywrightTestConfig = {
     // },
 
     /* Test against branded browsers. */
-    {
-      name: 'Microsoft Edge',
-      use: {
-        channel: 'msedge',
-      },
-    },
-    {
-      name: 'Google Chrome',
-      use: {
-        channel: 'chrome',
-      },
-    },
+    // {
+    //   name: 'Microsoft Edge',
+    //   use: {
+    //     channel: 'msedge',
+    //   },
+    // },
 
     // -- BrowserStack Projects --
     // name should be of the format browser@browser_version:os os_version@browserstack
-    // {
-    //   name: 'chrome@desktop@browserstack',
-    // },
-    // {
-    //   name: 'edge@desktop@browserstack',
-    // },
-    // {
-    //   name: 'firefox@desktop@browserstack',
-    // },
+    {
+      name: 'chrome@desktop@browserstack',
+    },
+    {
+      name: 'edge@desktop@browserstack',
+    },
+    {
+      name: 'firefox@desktop@browserstack',
+    },
+    {
+      name: 'safari@desktop@browserstack',
+    },
   ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
