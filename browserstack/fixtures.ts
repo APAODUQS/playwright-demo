@@ -33,12 +33,21 @@ export const test = base.extend({
           reason:
             testInfo?.error != undefined
               ? `Line: ${testInfo?.line} - Error: ${JSON.stringify(testInfo?.error?.message)}`
-              : 'Run Successfully',
+              : '',
         },
       }
-      await browserstackPage.evaluate(() => {
-        console.log(JSON.stringify(testResult))
-      }, `browserstack_executor: ${JSON.stringify(testResult)}`)
+      await browserstackPage.evaluate(() => {}, `browserstack_executor: ${JSON.stringify(testResult)}`)
+      const sessionDetails = JSON.parse(
+        await browserstackPage.evaluate(() => {},
+        `browserstack_executor: ${JSON.stringify({ action: 'getSessionDetails' })}`),
+      )
+      let urlBrowserReport = JSON.stringify(sessionDetails.browser_url)
+      urlBrowserReport = urlBrowserReport.substring(1, urlBrowserReport.indexOf('session'))
+      process.env['BROWSERSTACK_REPORT'] = urlBrowserReport
+      testInfo.attach('Browserstack session public url: ', {
+        contentType: 'text/html',
+        body: sessionDetails.public_url,
+      })
       await browserstackPage.close()
       await context.close()
     } else {

@@ -1,5 +1,7 @@
 import cp from 'child_process'
 const clientPlaywrightVersion = cp.execSync('npx playwright --version').toString().trim().split(' ')[1]
+let environment = 'local'
+let build = process.env.USER
 
 const capabilities = [
   {
@@ -53,6 +55,13 @@ const capabilities = [
 export function getCapability(projectName: string) {
   //search capability
   const current = capabilities.find((cap) => cap.projectname === projectName)
+  // Project name
+  current['project'] = 'fnf-testing'
+  current['browserstack.local'] = process.env.LOCAL_BS
+  if (current['browserstack.local']!) {
+    environment = process.env.ENV
+    build = process.env.BUILD
+  }
   if (current.name.match(/desktop/)) {
     // screen resolution
     current['resolution'] = '1920x1080'
@@ -63,7 +72,7 @@ export function getCapability(projectName: string) {
   current['browser_version'] = 'latest'
   current['playwrightVersion'] = clientPlaywrightVersion
   // Set the name build with the Jenkins build
-  current['build'] = `playwright-testing-build-${process.env.ENV}-${process.env.BUILD}`
+  current['build'] = `playwright-fnf-testing-build-${environment}-${build}`
   // Active Visual Logs automatically capture screenshots at every Playwright command executed during your test
   current['browserstack.debug'] = true
   // Get a comprehensive log of all network activity during your Playwright tests
@@ -74,5 +83,6 @@ export function getCapability(projectName: string) {
   // set global capabilities
   current['browserstack.username'] = process.env.BROWSERSTACK_USERNAME
   current['browserstack.accessKey'] = process.env.BROWSERSTACK_ACCESS_KEY
+
   return current
 }
