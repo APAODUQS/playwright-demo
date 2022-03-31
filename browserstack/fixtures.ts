@@ -16,6 +16,7 @@ export const test = base.extend({
     } else {
       use(context)
     }
+    testInfo.annotations.push({ type: 'Execution date', description: new Date().toString() })
   },
   page: async ({ page, context }, use, testInfo) => {
     if (testInfo.project.name.match(/browserstack/)) {
@@ -36,18 +37,18 @@ export const test = base.extend({
               : '',
         },
       }
-      await browserstackPage.evaluate(() => {}, `browserstack_executor: ${JSON.stringify(testResult)}`)
+      await browserstackPage.evaluate(() => Object(), `browserstack_executor: ${JSON.stringify(testResult)}`)
       const sessionDetails = JSON.parse(
-        await browserstackPage.evaluate(() => {},
-        `browserstack_executor: ${JSON.stringify({ action: 'getSessionDetails' })}`),
+        await browserstackPage.evaluate(
+          () => String(),
+          `browserstack_executor: ${JSON.stringify({ action: 'getSessionDetails' })}`,
+        ),
       )
       let urlBrowserReport = JSON.stringify(sessionDetails.browser_url)
       urlBrowserReport = urlBrowserReport.substring(1, urlBrowserReport.indexOf('session'))
       process.env['BROWSERSTACK_REPORT'] = urlBrowserReport
-      testInfo.attach('Browserstack session public url: ', {
-        contentType: 'text/html',
-        body: sessionDetails.public_url,
-      })
+      testInfo.annotations.push({ type: 'Browserstack build', description: urlBrowserReport })
+      testInfo.annotations.push({ type: 'Browserstack session public url', description: sessionDetails.public_url })
       await browserstackPage.close()
       await context.close()
     } else {

@@ -1,4 +1,4 @@
-import { PlaywrightTestConfig, devices } from '@playwright/test'
+import { PlaywrightTestConfig } from '@playwright/test'
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -27,12 +27,12 @@ const config: PlaywrightTestConfig = {
   workers: process.env.CI ? 1 : undefined,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [['html', { open: 'never' }]],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     // Browser options
-    headless: false,
+    headless: true,
     viewport: { width: 1920, height: 1080 },
     ignoreHTTPSErrors: true,
 
@@ -116,14 +116,5 @@ const config: PlaywrightTestConfig = {
       name: 'safari@desktop@browserstack',
     },
   ],
-
-  /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  // outputDir: 'test-results/',
-
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   port: 3000,
-  // },
 }
 export default config

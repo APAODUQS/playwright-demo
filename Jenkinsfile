@@ -2,8 +2,9 @@
 pipeline {
     agent { label 'agent'}
     parameters{
-        string(defaultValue: '', name: 'BROWSERSTACK_USERNAME', trim: true)
-        string(defaultValue: '', name: 'BROWSERSTACK_ACCESS_KEY', trim: true)         
+        booleanParam(name: 'RUN_LOCAL_BROWSERS', defaultValue: true, description: 'Would you like to run the tets on the local browsers? [Chrome, Safari, Firefox, Microsoft-Edge]')
+        booleanParam(name: 'RUN_BROWSERSTACK', defaultValue: false, description: 'Would you like to run the tets on the Browserstack? [chrome@desktop@browserstack, edge@desktop@browserstack, firefox@desktop@browserstack, safari@desktop@browserstack]') 
+        choice(name: 'RUN_PROJECT', choices: ['', 'Chrome', 'Safari', 'Firefox', 'Microsoft-Edge', 'chrome@desktop@browserstack', 'edge@desktop@browserstack', 'firefox@desktop@browserstack', 'safari@desktop@browserstack'], description: 'Select a project that you want to execute')
     }
     stages {
         stage('Checkout & Collect Info'){
@@ -27,20 +28,34 @@ pipeline {
         }
         stage('Run E2E Tests'){
             steps{
-                sh """
-                export BROWSERSTACK_USERNAME="${params.BROWSERSTACK_USERNAME}"
-                export BROWSERSTACK_ACCESS_KEY="${params.BROWSERSTACK_ACCESS_KEY}"
-                """
                 echo "Run Tests"
-                sh "npm run test"
+                sh selectTestSuite()
             }
         }
     }
     post{
         always {  
             publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'playwright-report',
-                reportFiles: "index.html", reportName: "Playwright Report"])
-            script{currentBuild.description = "Broserstack report: ${BROWSERSTACK_REPORT}"}
+                reportFiles: 'index.html', reportName: 'Playwright Report', reportTitles: 'Playwright Report'])
+            script{currentBuild.description = "Run local browsers: ${params.RUN_LOCAL_BROWSERS}, with Browserstack: ${params.RUN_BROWSERSTACK} wwith the project(${params.RUN_PROJECT})"}
         }
     }
+}
+
+def selectTestSuite(){
+    switch(true){
+        case [!params.RUN_LOCAL_BROWSERS && params.RUN_BROWSERSTACK]:
+            COMMAND = "npm run test:browserstack"
+            break
+        case [params.RUN_LOCAL_BROWSERS && !params.RUN_BROWSERSTACK]:
+            COMMAND = "npm run test:local"
+            break
+        case [!params.RUN_LOCAL_BROWSERS && !params.RUN_BROWSERSTACK]:
+            COMMAND = " npm run test -- --project ${params.RUN_PROJECT}"
+            break
+        default:
+            echo "Executing all Browsers"
+            break
+    }
+    return COMMAND
 }
