@@ -2,7 +2,8 @@
 pipeline {
     agent { label 'agent'}
     parameters{
-        booleanParam(name: 'RUN_LOCAL_BROWSERS', defaultValue: true, description: 'Would you like to run the tets on the local browsers? [Chrome, Safari, Firefox, Microsoft-Edge]')
+        booleanParam(name: 'BY_TAG', defaultValue: true, description: 'Run by the tag @playwright')
+        booleanParam(name: 'RUN_LOCAL_BROWSERS', defaultValue: false, description: 'Would you like to run the tets on the local browsers? [Chrome, Safari, Firefox, Microsoft-Edge]')
         booleanParam(name: 'RUN_BROWSERSTACK', defaultValue: false, description: 'Would you like to run the tets on the Browserstack? [chrome@desktop@browserstack, edge@desktop@browserstack, firefox@desktop@browserstack, safari@desktop@browserstack]') 
         choice(name: 'RUN_PROJECT', choices: ['', 'Chrome', 'Safari', 'Firefox', 'Microsoft-Edge', 'chrome@desktop@browserstack', 'edge@desktop@browserstack', 'firefox@desktop@browserstack', 'safari@desktop@browserstack'], description: 'Select a project that you want to execute')
     }
@@ -44,6 +45,9 @@ pipeline {
 
 def selectTestSuite(){
     switch(true){
+        case BY_TAG:
+            COMMAND = "npm run test -- --project Chrome --grep @playwright"
+            break
         case [!params.RUN_LOCAL_BROWSERS && params.RUN_BROWSERSTACK]:
             COMMAND = "npm run test:browserstack"
             break

@@ -6,11 +6,11 @@ import { TopBarComponent } from './component/top.bar'
 import { DocBarComponent } from './component/doc.bar'
 
 test.describe('My tests set', () => {
-  // test('Get started with Playwright', async ({ page }) => {
-  //   await page.goto('https://playwright.dev/')
-  //   await page.locator('text=Get started').click()
-  //   await expect(page).toHaveTitle(/Getting started/)
-  // })
+  test('Get started with Playwright @playwright', async ({ page }) => {
+    await page.goto('https://playwright.dev/')
+    await page.locator('text=Get started').click()
+    await expect(page).toHaveTitle(/Getting started/)
+  })
 
   test('Select the Top Bar Options', async ({ page }) => {
     const runner = new TopBarComponent(page)
@@ -36,4 +36,10 @@ test.describe('My tests set', () => {
     await expect(runner.docTitle.first()).toHaveText(new RegExp(subsection, 'i'))
   })
 
+  // test('HALO TEST', async ({ page }) => {
+  //   const runner = new HaloDefaultPage(page)
+  //   await runner.goto()
+  //   await runner.clickHotspotButton()
+  //   await expect(runner.hotspotTitle.first()).toHaveText(/TOUCHPODS/)
+  // })
 })
