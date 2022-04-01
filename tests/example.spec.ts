@@ -6,6 +6,10 @@ import { TopBarComponent } from './component/top.bar'
 import { DocBarComponent } from './component/doc.bar'
 
 test.describe('My tests set', () => {
+  test.beforeEach(async ({ browserName }) => {
+    test.slow(browserName == 'firefox', 'Page does not work in mobile yet')
+  })
+
   test('Get started with Playwright @playwright', async ({ page }) => {
     await page.goto('https://playwright.dev/')
     await page.locator('text=Get started').click()
