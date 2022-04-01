@@ -32,7 +32,7 @@ const config: PlaywrightTestConfig = {
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     // Browser options
-    headless: false,
+    headless: true,
     viewport: { width: 1920, height: 1080 },
     ignoreHTTPSErrors: true,
 
