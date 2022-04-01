@@ -12,11 +12,6 @@ pipeline {
             steps {
                 checkout scm
                 echo "Checkout: done"
-                sh """
-                export ENV="${GIT_BRANCH}"
-                export BUILD="${BUILD_NUMBER}"
-                export LOCAL_BS=false
-                """
             }
         }            
         stage('Build'){
@@ -38,14 +33,14 @@ pipeline {
         always {  
             publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'playwright-report',
                 reportFiles: 'index.html', reportName: 'Playwright Report', reportTitles: 'Playwright Report'])
-            script{currentBuild.description = "Run local browsers: ${params.RUN_LOCAL_BROWSERS}, with Browserstack: ${params.RUN_BROWSERSTACK} wwith the project(${params.RUN_PROJECT})"}
+            script{currentBuild.description = "Run local browsers: ${params.RUN_LOCAL_BROWSERS}, with Browserstack: ${params.RUN_BROWSERSTACK} (with the project: ${params.RUN_PROJECT})"}
         }
     }
 }
 
 def selectTestSuite(){
     switch(true){
-        case BY_TAG:
+        case params.BY_TAG:
             COMMAND = "npm run test -- --project Chrome --grep @playwright"
             break
         case [!params.RUN_LOCAL_BROWSERS && params.RUN_BROWSERSTACK]:
