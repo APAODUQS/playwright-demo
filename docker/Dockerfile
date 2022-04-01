@@ -1,5 +1,6 @@
-FROM mcr.microsoft.com/playwright:v1.20.1-focal
-RUN npx playwright@1.20.1 install
-RUN npx playwright@1.20.1 install chrome
-RUN npx playwright@1.20.1 install msedge
-RUN npx playwright@1.20.1 install firefox
+ARG PLAYWRIGHT_VERSION='1.20.1'
+FROM mcr.microsoft.com/playwright:v${PLAYWRIGHT_VERSION}-focal
+RUN npx playwright@${PLAYWRIGHT_VERSION} install
+RUN npx playwright@${PLAYWRIGHT_VERSION} install chrome
+RUN npx playwright@${PLAYWRIGHT_VERSION} install msedge
+RUN npx playwright@${PLAYWRIGHT_VERSION} install webkit
