@@ -1,6 +1,9 @@
 #!/usr/bin/env groovy
 pipeline {
     agent { dockerfile {filename 'docker/Dockerfile'} }
+    environment {
+        NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
+    }    
     parameters{
         booleanParam(name: 'BY_TAG', defaultValue: true, description: 'Run by the tag @playwright')
         booleanParam(name: 'RUN_LOCAL_BROWSERS', defaultValue: false, description: 'Would you like to run the tets on the local browsers? [Chrome, Safari, Firefox, Microsoft-Edge]')
