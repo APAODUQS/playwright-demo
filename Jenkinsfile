@@ -39,7 +39,7 @@ pipeline {
 def selectTestSuite(){
     switch(true){
         case params.BY_TAG:
-            COMMAND = "npm run test -- --project Chrome --grep @playwright"
+            COMMAND = "npm run test -- --project Chrome Safari Firefox Microsoft-Edge  --grep @playwright"
             break
         case [!params.RUN_LOCAL_BROWSERS && params.RUN_BROWSERSTACK]:
             COMMAND = "npm run test:browserstack"
