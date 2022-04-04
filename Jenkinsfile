@@ -4,6 +4,10 @@ pipeline {
     environment {
         NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
     }    
+    options {
+        sidebarLinks([
+            [displayName: 'Browserstack Reports', iconFileName: './browserstack/browserstack.svg', urlName: 'https://automate.browserstack.com']
+    ])
     parameters{
         booleanParam(name: 'BY_TAG', defaultValue: true, description: 'Run by the tag @playwright')
         booleanParam(name: 'RUN_LOCAL_BROWSERS', defaultValue: false, description: 'Would you like to run the tets on the local browsers? [Chrome, Safari, Firefox, Microsoft-Edge]')
@@ -34,7 +38,7 @@ pipeline {
         always {  
             publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'playwright-report',
                 reportFiles: 'index.html', reportName: 'Playwright Report', reportTitles: 'Playwright Report'])
-            script{currentBuild.displayName = "${BUILD_NUMBER} date: ${env.DATE}"}
+            script{currentBuild.displayName = "${BUILD_NUMBER}"}
             script{currentBuild.description = "Run local browsers: ${params.RUN_LOCAL_BROWSERS}, with Browserstack: ${params.RUN_BROWSERSTACK} (with the project: ${params.RUN_PROJECT})"}
         }
     }
