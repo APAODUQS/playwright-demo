@@ -34,6 +34,7 @@ pipeline {
         always {  
             publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'playwright-report',
                 reportFiles: 'index.html', reportName: 'Playwright Report', reportTitles: 'Playwright Report'])
+            script{currentBuild.displayName = "${BUILD_NUMBER} date: ${env.DATE}"}
             script{currentBuild.description = "Run local browsers: ${params.RUN_LOCAL_BROWSERS}, with Browserstack: ${params.RUN_BROWSERSTACK} (with the project: ${params.RUN_PROJECT})"}
         }
     }
