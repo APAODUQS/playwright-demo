@@ -17,8 +17,10 @@ export const test = base.extend({
       use(context)
     }
     testInfo.annotations.push({ type: 'Execution date', description: new Date().toString() })
-    process.env['DATE'] = new Date().toString()
-    console.log(`DATE IS: ${process.env.DATE}`)
+    testInfo.attach('Browserstack session public url: ', {
+      contentType: 'text/html',
+      body: '<a href="www.google.com">Link</a>',
+    })
   },
   page: async ({ page, context }, use, testInfo) => {
     if (testInfo.project.name.match(/browserstack/)) {
