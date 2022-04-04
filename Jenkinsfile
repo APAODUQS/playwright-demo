@@ -6,7 +6,7 @@ pipeline {
     }    
     options {
         sidebarLinks([
-            [displayName: 'Browserstack Reports', iconFileName: './browserstack/browserstack.svg', urlName: 'https://automate.browserstack.com']
+            [displayName: 'Browserstack Reports', iconFileName: './browserstack/browserstack.jpeg', urlName: 'https://automate.browserstack.com']
         ])
     }
     parameters{
