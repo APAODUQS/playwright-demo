@@ -18,6 +18,7 @@ export const test = base.extend({
     }
     testInfo.annotations.push({ type: 'Execution date', description: new Date().toString() })
     process.env['DATE'] = new Date().toString()
+    console.log(`DATE IS: ${process.env.DATE}`)
   },
   page: async ({ page, context }, use, testInfo) => {
     if (testInfo.project.name.match(/browserstack/)) {
