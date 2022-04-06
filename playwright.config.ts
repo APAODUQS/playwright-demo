@@ -1,4 +1,4 @@
-import { PlaywrightTestConfig } from '@playwright/test'
+import { devices, PlaywrightTestConfig } from '@playwright/test'
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -78,7 +78,12 @@ const config: PlaywrightTestConfig = {
         channel: 'msedge',
       },
     },
-
+    {
+      name: 'firefox-dev',
+      use: {
+        ...devices['Desktop Firefox'],
+      },
+    },
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
