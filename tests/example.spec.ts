@@ -1,5 +1,5 @@
 import { test } from '../browserstack/fixtures'
-import { expect, firefox } from '@playwright/test'
+import { expect } from '@playwright/test'
 import { UtilsTests } from './utils/utils'
 import { DocPage } from './page-object/doc.page'
 import { TopBarComponent } from './component/top.bar'
@@ -8,9 +8,6 @@ import { DocBarComponent } from './component/doc.bar'
 test.describe('My tests set', () => {
   test.beforeEach(async ({ browserName }) => {
     test.slow(browserName == 'firefox', 'Slow tests')
-    if (browserName == 'firefox') {
-      firefox.launchPersistentContext(process.env.PWD)
-    }
   })
 
   test('Get started with Playwright @playwright', async ({ page }) => {

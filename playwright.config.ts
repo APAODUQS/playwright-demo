@@ -84,6 +84,13 @@ const config: PlaywrightTestConfig = {
         ...devices['Desktop Firefox'],
       },
     },
+    {
+      name: 'firefox headful',
+      use: {
+        headless: false,
+        ...devices['Desktop Firefox'],
+      },
+    },
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
