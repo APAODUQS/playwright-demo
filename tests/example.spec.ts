@@ -6,14 +6,25 @@ import { TopBarComponent } from './component/top.bar'
 import { DocBarComponent } from './component/doc.bar'
 
 test.describe('My tests set', () => {
-  test.beforeEach(async ({ browserName }) => {
-    test.slow(browserName == 'firefox', 'Slow tests')
-  })
-
   test('Get started with Playwright @playwright', async ({ page }) => {
     await page.goto('https://playwright.dev/')
     await page.locator('text=Get started').click()
     await expect(page).toHaveTitle(/Getting started/)
+    // const screenshot = await page.screenshot()
+    // await testInfo.attach('screenshot', { body: screenshot, contentType: 'image/png' })
+    // ReportingApi.addAttributes([
+    //   {
+    //     key: 'testKey',
+    //     value: 'testValue',
+    //   },
+    //   {
+    //     value: 'testValueTwo',
+    //   },
+    // ])
+    // ReportingApi.setTestCaseId('itemTestCaseId')
+    // ReportingApi.info('info log with attachment')
+    // expect(true).toBe(true)
+    // ReportingApi.setStatusFailed()
   })
 
   test('Select the Top Bar Options', async ({ page }) => {
@@ -23,7 +34,7 @@ test.describe('My tests set', () => {
     await runner.gotoTopBarVersions()
   })
 
-  test('Go to "Getting started" with Playwright', async ({ page }, testInfo) => {
+  test('Go to "Getting started" with Playwright  @test', async ({ page }, testInfo) => {
     const section = UtilsTests.getTheTitleParams(testInfo.title)[0]
     const runner = new DocPage(page)
     await runner.goto()
@@ -40,10 +51,64 @@ test.describe('My tests set', () => {
     await expect(runner.docTitle.first()).toHaveText(new RegExp(subsection, 'i'))
   })
 
-  // test('HALO TEST', async ({ page }) => {
-  //   const runner = new HaloDefaultPage(page)
-  //   await runner.goto()
-  //   await runner.clickHotspotButton()
-  //   await expect(runner.hotspotTitle.first()).toHaveText(/TOUCHPODS/)
-  // })
+  test('Get started with Playwright 1 @playwright', async ({ page }) => {
+    await page.goto('https://playwright.dev/')
+    const text = 'Playwright enables reliable end-to-end testing for modern web apps'
+    const locator = page.locator(`text=${text}`)
+    await expect.soft(locator.first(), `The text ${text} should be present`).toContainText(text)
+  })
+  test('Get started with Playwright 2 @playwright', async ({ page }) => {
+    await page.goto('https://playwright.dev/')
+    const text = 'start'
+    const locator = page.locator(`text=${text}`)
+    await expect.soft(locator.first(), `The text ${text} should be present`).toContainText(text)
+  })
+  test('Get started with Playwright 3 @playwright', async ({ page }) => {
+    await page.goto('https://playwright.dev/')
+    const text = 'Any browser'
+    const locator = page.locator(`text=${text}`)
+    await expect.soft(locator.first(), `The text ${text} should be present`).toContainText(text)
+  })
+  test('Get started with Playwright 4 @playwright', async ({ page }) => {
+    await page.goto('https://playwright.dev/')
+    const text = 'Resilient'
+    const locator = page.locator(`text=${text}`)
+    await expect.soft(locator.first(), `The text ${text} should be present`).toContainText(text)
+  })
+  test('Get started with Playwright 5 @playwright', async ({ page }) => {
+    await page.goto('https://playwright.dev/')
+    const text = 'Any platform'
+    const locator = page.locator(`text=${text}`)
+    await expect.soft(locator.first(), `The text ${text} should be present`).toContainText(text)
+  })
+  test('Get started with Playwright 6 @playwright', async ({ page }) => {
+    await page.goto('https://playwright.dev/')
+    const text = 'No flaky tests'
+    const locator = page.locator(`text=${text}`)
+    await expect.soft(locator.first(), `The text ${text} should be present`).toContainText(text)
+  })
+  test('Get started with Playwright 7 @playwright', async ({ page }) => {
+    await page.goto('https://playwright.dev/')
+    const text = 'One API'
+    const locator = page.locator(`text=${text}`)
+    await expect.soft(locator.first(), `The text ${text} should be present`).toContainText(text)
+  })
+  test('Get started with Playwright 8 @playwright', async ({ page }) => {
+    await page.goto('https://playwright.dev/')
+    const text = 'Chosen by companies and open source projects'
+    const locator = page.locator(`text=${text}`)
+    await expect.soft(locator.first(), `The text ${text} should be present`).toContainText(text)
+  })
+  test('Get started with Playwright 9 @playwright', async ({ page }) => {
+    await page.goto('https://playwright.dev/')
+    const text = 'Powerful Tooling'
+    const locator = page.locator(`text=${text}`)
+    await expect.soft(locator.first(), `The text ${text} should be present`).toContainText(text)
+  })
+  test('Get started with Playwright 10 @playwright', async ({ page }) => {
+    await page.goto('https://playwright.dev/')
+    const text = 'Community'
+    const locator = page.locator(`text=${text}`)
+    await expect.soft(locator.first(), `The text ${text} should be present`).toContainText(text)
+  })
 })

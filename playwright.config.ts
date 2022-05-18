@@ -3,6 +3,24 @@ import { devices, PlaywrightTestConfig } from '@playwright/test'
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+
+const RPconfig = {
+  token: 'bc88f7ba-0045-4a4b-a387-250e96febb65',
+  endpoint: 'http://localhost:8080/api/v1',
+  project: 'superadmin_personal',
+  launch: 'Example',
+  attributes: [
+    {
+      key: 'key',
+      value: 'value',
+    },
+    {
+      value: 'value',
+    },
+  ],
+  description: 'Your launch description',
+}
+
 const config: PlaywrightTestConfig = {
   testDir: './tests',
 
@@ -27,13 +45,16 @@ const config: PlaywrightTestConfig = {
   workers: process.env.CI ? 1 : undefined,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['html', { open: 'never' }]],
+  reporter: [
+    ['html', { open: 'never' }],
+    // ['@reportportal/agent-js-playwright', RPconfig],
+  ],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     // Browser options
     headless: true,
-    viewport: { width: 1920, height: 1080 },
+    viewport: { width: 1800, height: 900 },
     ignoreHTTPSErrors: true,
 
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */

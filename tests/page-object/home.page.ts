@@ -17,6 +17,6 @@ export class HomePage {
 
   async clickStartButton() {
     await expect.soft(this.getStartButton, 'The "Get Start" button should be visible').toBeVisible()
-    this.getStartButton.click()
+    await this.getStartButton.click()
   }
 }

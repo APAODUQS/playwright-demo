@@ -72,7 +72,7 @@ export function getCapability(projectName: string) {
   current['browser_version'] = 'latest'
   current['playwrightVersion'] = clientPlaywrightVersion
   // Set the name build with the Jenkins build
-  current['build'] = `playwright-fnf-testing-build-${environment}-${build}`
+  current['build'] = `playwright-demo-${environment}-${build}`
   // Active Visual Logs automatically capture screenshots at every Playwright command executed during your test
   current['browserstack.debug'] = true
   // Get a comprehensive log of all network activity during your Playwright tests

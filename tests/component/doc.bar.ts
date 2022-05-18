@@ -2,7 +2,7 @@ import { expect, Locator, Page } from '@playwright/test'
 import { DocPage } from '../page-object/doc.page'
 
 export class DocBarComponent extends DocPage {
-  readonly DOC_BAR: string = '.menu.thin-scrollbar.menu_Bmed'
+  readonly DOC_BAR: string = '#__docusaurus > div.main-wrapper > div > aside > div > nav > ul'
   readonly OPTION: string = 'text=OPTION'
 
   readonly component: Page
@@ -19,6 +19,6 @@ export class DocBarComponent extends DocPage {
     let locator = this.OPTION
     locator = locator.replace(/OPTION/, option)
     const selectOption = this.component.locator(locator)
-    selectOption.click()
+    await selectOption.click()
   }
 }

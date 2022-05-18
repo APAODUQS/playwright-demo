@@ -2,8 +2,7 @@ import { Locator, Page } from '@playwright/test'
 import { HomePage } from '../page-object/home.page'
 
 export class TopBarComponent extends HomePage {
-  readonly TOP_BAR_VERSIONS: string = '(//*[@class="navbar__link"])[1]'
-  readonly TOP_BAR_LANGUAGES: string = '(//*[@class="navbar__link"])[2]'
+  readonly TOP_BAR: string = '(//*[@class="navbar__link"])'
 
   readonly component: Page
   readonly versionSelection: Locator
@@ -12,15 +11,15 @@ export class TopBarComponent extends HomePage {
   constructor(component: Page) {
     super(component)
     this.component = component
-    this.versionSelection = component.locator(this.TOP_BAR_VERSIONS)
-    this.languageSelection = component.locator(this.TOP_BAR_LANGUAGES)
+    this.versionSelection = component.locator(this.TOP_BAR).nth(0)
+    this.languageSelection = component.locator(this.TOP_BAR).nth(1)
   }
 
   async gotoTopBarVersions() {
-    this.versionSelection.click()
+    await this.versionSelection.click()
   }
 
   async gotoTopBarLanguages() {
-    this.languageSelection.click()
+    await this.languageSelection.click()
   }
 }
