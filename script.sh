@@ -1,2 +1,2 @@
-echo "Changing the status for the test cases to ${STATUS}"
-echo "The description is ${DESCRIPTION}"
+echo "Changing the status for the test cases to %--status%"
+echo "The description is %--description%"
