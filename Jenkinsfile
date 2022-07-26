@@ -3,6 +3,8 @@ pipeline {
     agent { dockerfile {filename 'docker/Dockerfile'} }
     environment {
         NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
+        ENV = "${BRANCH}"
+        BUILD = "${BUILD_NUMBER}"
     }    
     options {
         sidebarLinks([
@@ -30,8 +32,23 @@ pipeline {
         }
         stage('Run E2E Tests'){
             steps{
-                echo "Run Tests"
-                sh selectTestSuite()
+                withCredentials([
+                usernamePassword(
+                    credentialsId: 'jira-credentials-cc',
+                    usernameVariable: 'JIRAUSERNAME',
+                    passwordVariable: 'JIRAPASS'
+                )
+                ]){ 
+                    script{
+                        echo "Creating the test execution"
+                        def TICKET = "DESK-12"
+                        def TEST_EXECUTION = sh([script: "sh ./xray/addTestExecutionAndTestCases.sh ${JIRAUSERNAME} ${JIRAPASS} ${ENV}-${BUILD} ${TICKET}| tail -n 1", returnStdout: true]).trim()
+                        echo "Run Tests"
+                        sh "sh ./xray/changeStatusTestExecution.sh ${JIRAUSERNAME} ${JIRAPASS} EXECUTING ${TEST_EXECUTION}"
+                        def STATUS = getStatusTests(sh([script: "${selectTestSuite()} | grep 'failed' | wc -l", returnStdout: true]).trim())
+                        sh "sh ./xray/changeStatusTestExecution.sh ${JIRAUSERNAME} ${JIRAPASS} ${STATUS} ${TEST_EXECUTION}"
+                    }
+                }
             }
         }
     }
@@ -64,4 +81,12 @@ def selectTestSuite(){
             break
     }
     return COMMAND
+}
+
+def getStatusTests(def status){
+    if(status=="0"){
+        return "PASS"
+    } else {
+        return "FAIL"
+    }
 }
