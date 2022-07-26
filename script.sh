@@ -21,13 +21,6 @@ export TEST_EXECUTION=$(curl --request POST -u ${JIRAUSERNAME}:${JIRAPASS} ${JIR
    }
 }" | cut -d '"' -f 8)
 
-echo 'Adding tests to Test Execution'
-curl -X POST -H "Content-Type: application/json" -u ${JIRAUSERNAME}:${JIRAPASS} ${JIRA_URL}/rest/raven/1.0/api/testexec/${TEST_EXECUTION}/test \
---data-raw "{
-   \"add\": [
-        \"${TICKET}\"
-    ]
-}"
 
 echo $TEST_EXECUTION
 
