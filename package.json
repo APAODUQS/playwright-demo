@@ -24,6 +24,7 @@
     "prettier": "^2.5.1"
   },
   "scripts": {
+    "test:tag": "npx playwright test --config=playwright.config.ts --project chrome@desktop@browserstack --grep @playwright",
     "test": "npx playwright test --config=playwright.config.ts",
     "test:browserstack": "npx playwright test --config=playwright.config.ts --project chrome@desktop@browserstack edge@desktop@browserstack firefox@desktop@browserstack safari@desktop@browserstack",
     "test:local": "npx playwright test --config=playwright.config.ts --project Chrome Safari Firefox Microsoft-Edge",
@@ -33,10 +34,18 @@
     "prettier": "prettier '**/*.{js,ts,tsx,md}' --ignore-path .gitignore"
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": ["eslint --fix", "prettier --write"],
-    "*.{json}": ["prettier --write"]
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json}": [
+      "prettier --write"
+    ]
   },
   "eslintConfig": {
-    "extends": ["plugin:prettier/recommended", "plugin:@typescript-eslint/recommended"]
+    "extends": [
+      "plugin:prettier/recommended",
+      "plugin:@typescript-eslint/recommended"
+    ]
   }
 }
