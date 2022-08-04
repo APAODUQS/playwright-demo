@@ -24,7 +24,7 @@
     "prettier": "^2.5.1"
   },
   "scripts": {
-    "test:tag": "npx playwright test --config=playwright.config.ts --project chrome@desktop@browserstack --grep @playwright",
+    "test:tag": "npx playwright test --config=playwright.config.ts --project chrome@desktop@browserstack --grep @test",
     "test": "npx playwright test --config=playwright.config.ts",
     "test:browserstack": "npx playwright test --config=playwright.config.ts --project chrome@desktop@browserstack edge@desktop@browserstack firefox@desktop@browserstack safari@desktop@browserstack",
     "test:local": "npx playwright test --config=playwright.config.ts --project Chrome Safari Firefox Microsoft-Edge",

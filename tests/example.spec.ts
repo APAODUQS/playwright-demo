@@ -34,7 +34,7 @@ test.describe('My tests set', () => {
     await runner.gotoTopBarVersions()
   })
 
-  test('Go to "Getting started" with Playwright  @test', async ({ page }, testInfo) => {
+  test('Go to "Installation" with Playwright  @test', async ({ page }, testInfo) => {
     const section = UtilsTests.getTheTitleParams(testInfo.title)[0]
     const runner = new DocPage(page)
     await runner.goto()
