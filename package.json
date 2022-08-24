@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/APAODUQS/playwright-demo#readme",
   "devDependencies": {
-    "@playwright/test": "^1.25.0",
+    "@playwright/test": "1.24.2",
     "@reportportal/agent-js-playwright": "^5.0.3",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "eslint": "^7.11.0",
